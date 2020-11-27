@@ -1,0 +1,13 @@
+name: Deploy to Cluster
+on: push
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: install Kustomize
+      run: curl -s "https://raw.githubusercontent.com/kubernetes-sigs/kustomize/master/hack/install_kustomize.sh" | bash
+    - name: Build Cluster Yaml
+      run: ./kustomize build -o ./dist/cluster-config.yaml ./kubernetes/
+    - name: Show result
+      run: cat ./dist/cluster-config.yaml
