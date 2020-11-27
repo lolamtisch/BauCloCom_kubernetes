@@ -7,7 +7,11 @@ jobs:
     - uses: actions/checkout@v2
     - name: install Kustomize
       run: curl -s "https://raw.githubusercontent.com/kubernetes-sigs/kustomize/master/hack/install_kustomize.sh" | bash
-    - name: Build Cluster Yaml
+    - name: Build cluster yaml
       run: ./kustomize build -o ./dist/cluster-config.yaml ./kubernetes/
-    - name: Show result
-      run: cat ./dist/cluster-config.yaml
+    - name: Deploy to cluster
+      uses: steebchen/kubectl@master
+      env:
+        KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}
+      with:
+        args: apply -f ./dist/cluster-config.yaml
