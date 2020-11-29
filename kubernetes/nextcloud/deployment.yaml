@@ -40,6 +40,21 @@ spec:
                 secretKeyRef:
                   key: MYSQL_USER
                   name: db-secrets
+            - name: NEXTCLOUD_ADMIN_USER
+              valueFrom:
+                secretKeyRef:
+                  key: NEXTCLOUD_ADMIN_USER
+                  name: db-secrets
+            - name: NEXTCLOUD_ADMIN_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  key: NEXTCLOUD_ADMIN_PASSWORD
+                  name: db-secrets
+            - name: NEXTCLOUD_TRUSTED_DOMAINS
+              valueFrom:
+                secretKeyRef:
+                  key: NEXTCLOUD_TRUSTED_DOMAINS
+                  name: db-secrets
           volumeMounts:
             - mountPath: /var/www/html
               name: app-persistent-storage
