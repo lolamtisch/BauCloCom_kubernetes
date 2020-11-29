@@ -1,0 +1,4 @@
+FROM nextcloud:apache
+
+ENTRYPOINT ["/entrypoint.sh"]
+CMD ["apache2-foreground"]
