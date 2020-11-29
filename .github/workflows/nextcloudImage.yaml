@@ -3,6 +3,8 @@ name: Publish container to GitHub Registry
 on:
   workflow_dispatch:
   push:
+    branches:
+      - master
     paths:
       - "dockerfiles/**"
 

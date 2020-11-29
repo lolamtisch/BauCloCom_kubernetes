@@ -17,7 +17,7 @@ spec:
         component: app
     spec:
       containers:
-        - image: nextcloud:apache
+        - image: ghcr.io/lolamtisch/bauclocom_kubernetes/cloudnextcloud:image_registry
           imagePullPolicy: Always
           name: app
           ports:
