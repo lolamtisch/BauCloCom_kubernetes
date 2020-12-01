@@ -1,0 +1,12 @@
+High availability clusters
+A high availability cluster (HA cluster) refers to a group of hosts or systems (henceforth called nodes) which act as a single system. Seeing a cluster as a single system will allow the system to refer users to other nodes seamlessly and without any downtime in case of a failure (also called “fail over”). There are different ways HA clusters can be configured.
+In case of an active-active HA cluster, every node will simultaneously process data for the users, which is called load balancing, to optimize network efficiency and increase throughput and response times. Thus the users are balanced between every node of the system. Downside is the increased cost in comparison to active-passive HA clusters. The load balancing algorithm depends on the settings of the load balancer. In case of a Round Robin algorithm with 2 nodes for example, the first user may use the first node, the second user the second node, and the third user will then have to use the first node together with the first user.
+In active-passive HA clusters a backup node only starts processing once a failure at the active node is detected, which results in significantly less network efficiency and a lower cost compared to active-active HA clusters, since the users are only using a single node together. The reduced cost stems from the fact that not many backup nodes will be needed at all, since total failure with multiple backup nodes is less likely.
+HA clusters differ in size with a minimum of 2 nodes. All nodes must have access to the same shared storage to allow fail over to another host.
+
+
+
+https://www.sciencedirect.com/topics/computer-science/high-availability-cluster
+https://searchnetworking.techtarget.com/definition/load-balancing
+https://www.jscape.com/blog/active-active-vs-active-passive-high-availability-cluster
+Inklusive 2 Diagramme bzgl active-active und active-passive
