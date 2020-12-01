@@ -10,13 +10,12 @@ The system orchestrates so called pods as smallest deployable unit on the nodes.
 
 For different pods to communicate as well as to communicate with the user’s services are created. There are several services which can be created for example a network service for the user to access the application. The Services manage different port forwarding and support the pods to get the relevant data from other pods. Another example for a service is a load balancer. The load balancer analyses the volume of workload on different nodes and automatically distributes the workload evenly. 
 
-![Kubernetes Architecture](images/kubernetes_architecture.png)
-
+![Kubernetes Architecture](images/kubernetes_architecture.png)  
 Von Khtan66 - Eigenes Werk, CC BY-SA 4.0, https://commons.wikimedia.org/w/index.php?curid=53571935
 
 
-https://www.wired.com/2015/06/google-kubernetes-says-future-cloud-computing/
-Cade Metz: Google Open Sources Its Secret Weapon in Cloud Computing. In: Wired. 10. Juni 2014, ISSN 1059-1028
-Cloud Native Computing Foundation soll Container-Technologien zusammenbringen. In: pro-linux.de. 22. Juni 2015.
+https://www.wired.com/2015/06/google-kubernetes-says-future-cloud-computing/  
+Cade Metz: Google Open Sources Its Secret Weapon in Cloud Computing. In: Wired. 10. Juni 2014, ISSN 1059-1028  
+Cloud Native Computing Foundation soll Container-Technologien zusammenbringen. In: pro-linux.de. 22. Juni 2015.  
 https://kubernetes.io/de/docs/concepts/overview/what-is-kubernetes/
 
