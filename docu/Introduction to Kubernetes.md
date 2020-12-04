@@ -1,6 +1,6 @@
 # Introduction to Kubernetes
 
-Kubernetes is a portable and scalable open-source-platform to manage container-based applications and services. It eases up the configuration as well as the automatization. Joe Beda, Brendan Burns and Craig McLuckie founded Kubernetes just before more Google employees collaborated. (Wired, 2015) 2014 Kubernetes has been announced. (Metz, 2014) Version 1.0 has been published on the 21st July 2015. On that day the project also was founded to the Cloud Native Computing Foundation and remained then open source. (pro-linux, 2015)
+Kubernetes is a portable and scalable open-source-platform to manage container-based applications and services. It eases up the configuration as well as the automatization. Joe Beda, Brendan Burns and Craig McLuckie founded Kubernetes. Later on more Google employees collaborated. (Wired, 2015) 2014 Kubernetes has been announced. (Metz, 2014) Version 1.0 has been published on the 21st July 2015. On that day the Cloud Native Computing Foundation was founded and Kubernetes was donated to it.Till then it remained open source. (pro-linux, 2015)
 
 Kubernetes coordinates computer-, network- and storage infrastructure. It has aspects of the platform as a service (paas) as well as infrastructure as a service (iaas). It also allows the portability between different infrastructure providers.
 
