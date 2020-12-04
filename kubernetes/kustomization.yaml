@@ -5,6 +5,7 @@ commonLabels:
   version: "15"
 
 bases:
+  - tenants
   - redis
   - mariadb
   - nextcloud
