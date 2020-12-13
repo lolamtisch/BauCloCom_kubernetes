@@ -8,7 +8,7 @@ spec:
   selector:
     matchLabels:
       component: app
-  replicas: 1
+  replicas: 2
   strategy:
     type: Recreate
   template:
@@ -55,6 +55,26 @@ spec:
                 secretKeyRef:
                   key: NEXTCLOUD_TRUSTED_DOMAINS
                   name: db-secrets
+            - name: OBJECTSTORE_S3_BUCKET
+              value: "nextcloud"
+            - name: OBJECTSTORE_S3_PORT
+              value: "9000"
+            - name: OBJECTSTORE_S3_SSL
+              value: "false"
+            - name: OBJECTSTORE_S3_USEPATH_STYLE
+              value: "true"
+            - name: OBJECTSTORE_S3_HOST
+              value: "minio-hl"
+            - name: OBJECTSTORE_S3_KEY
+              valueFrom:
+                secretKeyRef:
+                  key: accesskey
+                  name: minio-creds-secret
+            - name: OBJECTSTORE_S3_SECRET
+              valueFrom:
+                secretKeyRef:
+                  key: secretkey
+                  name: minio-creds-secret
           volumeMounts:
             - mountPath: /var/www/html
               name: app-persistent-storage

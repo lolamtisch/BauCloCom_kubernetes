@@ -5,7 +5,7 @@ commonLabels:
   version: "15"
 
 bases:
-  - tenants
+  - minio
   - redis
   - mariadb
   - nextcloud
