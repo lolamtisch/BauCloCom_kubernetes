@@ -69,7 +69,7 @@ spec:
           value: "1"
         ports:
         - name: mysql
-          containerPort: 3306
+          containerPort: 3308
         volumeMounts:
         - name: data
           mountPath: /var/lib/mysql
@@ -97,7 +97,7 @@ spec:
         image: gcr.io/google-samples/xtrabackup:1.0
         ports:
         - name: xtrabackup
-          containerPort: 3307
+          containerPort: 3309
         command:
         - bash
         - "-c"

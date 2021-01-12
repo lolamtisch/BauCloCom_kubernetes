@@ -8,7 +8,7 @@ metadata:
 spec:
   ports:
   - name: mysql
-    port: 3306
+    port: 3308
   clusterIP: None
   selector:
     app: mysql
@@ -24,6 +24,6 @@ metadata:
 spec:
   ports:
   - name: mysql
-    port: 3306
+    port: 3308
   selector:
     app: mysql
