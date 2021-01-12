@@ -65,8 +65,26 @@ spec:
       - name: mysql
         image: mysql:5.7
         env:
-        - name: MYSQL_ALLOW_EMPTY_PASSWORD
-          value: "1"
+          - name: MYSQL_DATABASE
+            valueFrom:
+              secretKeyRef:
+                key: MYSQL_DATABASE
+                name: db-secrets
+          - name: MYSQL_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                key: MYSQL_PASSWORD
+                name: db-secrets
+          - name: MYSQL_ROOT_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                key: MYSQL_ROOT_PASSWORD
+                name: db-secrets
+          - name: MYSQL_USER
+            valueFrom:
+              secretKeyRef:
+                key: MYSQL_USER
+                name: db-secrets
         ports:
         - name: mysql
           containerPort: 3308
