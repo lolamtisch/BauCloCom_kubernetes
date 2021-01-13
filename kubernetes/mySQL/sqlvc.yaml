@@ -3,6 +3,7 @@ kind: PersistentVolumeClaim
 metadata:
   name: mysql-volumneclaim
 spec:
+  storageClassName: manual
   accessModes:
     - ReadWriteOnce
   resources:

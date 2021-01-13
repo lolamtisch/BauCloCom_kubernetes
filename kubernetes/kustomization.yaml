@@ -7,19 +7,19 @@ commonLabels:
 bases:
   - minio
   - redis
+  - mySQL
   - nextcloud
   - cron
-  - mySQL
 
 patchesStrategicMerge:
   - patch.yaml
 
 vars:
-  - name: DB_SERVICE
+  - name: MYSQL_SERVICE
     objref:
       apiVersion: v1
       kind: Service
-      name: db
+      name: mysql
   - name: REDIS_SERVICE
     objref:
       apiVersion: v1

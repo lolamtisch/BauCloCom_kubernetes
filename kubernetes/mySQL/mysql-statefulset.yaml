@@ -7,7 +7,7 @@ spec:
     matchLabels:
       app: mysql
   serviceName: mysql
-  replicas: 3
+  replicas: 2
   template:
     metadata:
       labels:
@@ -75,11 +75,8 @@ spec:
               secretKeyRef:
                 key: MYSQL_PASSWORD
                 name: db-secrets
-          - name: MYSQL_ROOT_PASSWORD
-            valueFrom:
-              secretKeyRef:
-                key: MYSQL_ROOT_PASSWORD
-                name: db-secrets
+          - name: MYSQL_ALLOW_EMPTY_PASSWORD
+            value: "1"
           - name: MYSQL_USER
             valueFrom:
               secretKeyRef:
@@ -179,6 +176,7 @@ spec:
       name: data
     spec:
       accessModes: ["ReadWriteOnce"]
+      storageClassName: manual
       resources:
         requests:
           storage: 5Gi
