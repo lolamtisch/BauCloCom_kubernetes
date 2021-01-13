@@ -7,7 +7,6 @@ commonLabels:
 bases:
   - minio
   - redis
-  - mariadb
   - nextcloud
   - cron
   - mySQL
