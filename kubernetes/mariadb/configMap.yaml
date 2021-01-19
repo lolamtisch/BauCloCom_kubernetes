@@ -45,4 +45,4 @@ data:
     else
         cat /mnt/config-map/master-start-replication.sql > docker-entrypoint-initdb.d/init.sql
     fi
-    /usr/local/bin/docker-entrypoint.sh mysqld --log-bin=mariadb-bin --binlog-format=ROW --log-slave-updates --server-id=$((3000 + $server_id))
+    /usr/local/bin/docker-entrypoint.sh mysqld --log-bin=mariadb-bin --binlog-format=ROW --log-slave-updates --max-connections=1000 --transaction-isolation=READ-COMMITTED --server-id=$((3000 + $server_id))

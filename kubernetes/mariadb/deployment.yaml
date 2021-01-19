@@ -61,8 +61,6 @@ spec:
           subPath: my.cnf
         - name: mariadb-sql
           mountPath: /mnt/config-map
-        - name: mariadb-entrypoint-mariadb-replication-secret
-          mountPath: /docker-entrypoint-initdb.d
         - name: data
           mountPath: /var/lib/mysql
           subPath: mysql
@@ -87,4 +85,4 @@ spec:
       accessModes: ["ReadWriteOnce"]
       resources:
         requests:
-          storage: 256Mi
+          storage: 5Gi

@@ -14,14 +14,14 @@ data:
     address=mariadb-0.mariadb.nextcloud.svc.cluster.local
     port=3306
     protocol=MariaDBBackend
-    persistpoolmax=100
+    persistpoolmax=10
     persistmaxtime=999999999999
     [server1]
     type=server
     address=mariadb-1.mariadb.nextcloud.svc.cluster.local
     port=3306
     protocol=MariaDBBackend
-    persistpoolmax=100
+    persistpoolmax=10
     persistmaxtime=999999999999
     [Replication-Monitor]
     type=monitor
@@ -43,6 +43,7 @@ data:
     user=maxuser
     password=maxpwd
     enable_root_user=1
+    master_accept_reads=true
     [Splitter-Listener]
     type=listener
     service=Splitter-Service
