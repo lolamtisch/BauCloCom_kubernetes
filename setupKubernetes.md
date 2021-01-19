@@ -1,10 +1,10 @@
-##Setup Kubernetes cluster
+## Setup Kubernetes cluster
 ### Introduction
 This setup is intended for ubuntu Vms running on VmWare Workstation 16, a different VT-tool can be used,
 but it needs to be ensured, that the vms get static IPs.
 
 ### Prepare the system
-Set terminal to super user
+Open the Terminal with ctrl+T. Set terminal to super user
 ```
 sudo su
 ```
@@ -55,6 +55,7 @@ apt-get install -y kubelet kubeadm kubectl
 Open 10-kubeadm.conf and add following line after the last environment variable
 ```
 nano /etc/systemd/system/kubelet.service.d/10-kubeadm.conf
+
 Environment=”cgroup-driver=systemd/cgroup-driver=cgroupfs”
 ```
 
