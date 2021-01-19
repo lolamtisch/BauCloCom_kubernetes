@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: mariadb
+  labels:
+    mariadb: mariadb
+  annotations:
+    service.alpha.kubernetes.io/tolerate-unready-endpoints: "true"
+spec:
+  selector:
+    mariadb: mariadb
+  clusterIP: None
+  publishNotReadyAddresses: True
+  ports:
+  - name: mariadb
+    port: 3306
