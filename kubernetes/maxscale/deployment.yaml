@@ -28,9 +28,6 @@ spec:
           mountPath: /mnt/config-map
         - name: start-maxscale
           mountPath: /mnt/config-template
-        - name: mariadb-replication-secrets
-          mountPath: /etc/mysql/certificate
-          readOnly: true
 
       volumes:
       - name: mariadb-config-vol
@@ -39,6 +36,3 @@ spec:
         configMap:
           name: mariadb-maxscale-config
           defaultMode: 484
-      - name: mariadb-replication-secrets
-        secret:
-          secretName: mariadb-replication-secret
