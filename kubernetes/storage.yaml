@@ -1,0 +1,95 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: nextcloud-data-1
+  namespace: nextcloud
+  labels:
+    type: local
+spec:
+  storageClassName: manual
+  capacity:
+    storage: 5Gi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: "/mnt/data/1"
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: nextcloud-data-2
+  namespace: nextcloud
+  labels:
+    type: local
+spec:
+  storageClassName: manual
+  capacity:
+    storage: 5Gi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: "/mnt/data/2"
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: minio-data-1
+  namespace: nextcloud
+  labels:
+    type: local
+spec:
+  storageClassName: default
+  capacity:
+    storage: 5G
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: "/mnt/data/minio-1"
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: minio-data-2
+  namespace: nextcloud
+  labels:
+    type: local
+spec:
+  storageClassName: default
+  capacity:
+    storage: 5G
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: "/mnt/data/minio-2"
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: minio-data-3
+  namespace: nextcloud
+  labels:
+    type: local
+spec:
+  storageClassName: default
+  capacity:
+    storage: 5G
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: "/mnt/data/minio-3"
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: minio-data-4
+  namespace: nextcloud
+  labels:
+    type: local
+spec:
+  storageClassName: default
+  capacity:
+    storage: 5G
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: "/mnt/data/minio-4"
