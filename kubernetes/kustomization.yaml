@@ -4,6 +4,9 @@ commonLabels:
   app: nextcloud
   version: "15"
 
+resources:
+  - nextcloudNamespace.yaml
+
 bases:
   - minio
   - redis
