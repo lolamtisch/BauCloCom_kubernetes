@@ -24,7 +24,9 @@ spec:
             - containerPort: 80
           env:
             - name: MYSQL_HOST
-              value: "mariadb"
+              value: "db"
+            - name: REDIS_HOST
+              value: "redis"
             - name: MYSQL_DATABASE
               valueFrom:
                 secretKeyRef:
