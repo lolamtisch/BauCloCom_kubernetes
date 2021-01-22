@@ -29,4 +29,13 @@ The secret.yaml is the next file which is applied. It contains all passwords and
 The kind `Secret`is also a little bit different than the general structure. A `type` of the secret is descibed as well as different variables inside the `data` option.
 
 ## Minio
-After setting up the namespace and the secret minio is set up to Store the data of nextcloud. For the deployment secrets and tenants are needed. The secrets describe the minio credentials as well as the console keys. These are then used inside the tenants. Tenants are a special kind of object which is not present in default kubernetes. To create such an object you have to install minio on the cluster first to use it. The tenant then can be created with the yaml file. Inside the file the amount of replicas is set to two. Based on this two consol objects are created for minio. Kubernetes automatically detects the amount of servers available in the cluster as well as their workload and then evenly distributes all replicas accross the cluster. Inside the tentant a persistent volume claim is created to store data not only for the runtime but indipendent of the pod.
+After setting up the namespace and the secret minio is set up to store the data of nextcloud. For the deployment secrets and tenants are needed. The secrets describe the minio credentials as well as the console keys. These are then used inside the tenants. Tenants are a special kind of object which is not present in default kubernetes. To create such an object you have to install minio on the cluster first to use it. The tenant then can be created with the yaml file. Inside the file the amount of replicas is set to two. Based on this two consol objects are created for minio. Kubernetes automatically detects the amount of servers available in the cluster as well as their workload and then evenly distributes all replicas accross the cluster. Inside the tentant a persistent volume claim is created to store data not only for the runtime but indipendent of the pod. In the file the amount of servers is described as two as well as each server gets two volume claims with a storage of 5GB each.
+
+##Redis
+As minio is set up Redis has to be set up. Redis is a modern memcache to use for distributed caching and as key-vlaue store for avoiding file corruption during normal operations. It includes a service as well as the pods. The service is again very simple, only defining the port of the service. In the deployment the initialized service is then used. This pot is only created once, as it is used for all servers.
+
+##MySQL
+
+##Nextcloud
+
+##Cron
