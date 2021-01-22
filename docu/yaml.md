@@ -39,3 +39,4 @@ As minio is set up Redis has to be set up. Redis is a modern memcache to use for
 ## Nextcloud
 
 ## Cron
+The last step in the setup is to configure Cron. Cron is a background system scheduling jobs regardless of user interactions. It is setup to run jobs in the background regularly as well as not interfere with the performance of nextcloud. These task could be for example database clean-ups. The jobs are usually command or shell-based scripts and are scheduled to run periodically at fixed times, dates or intervals.
