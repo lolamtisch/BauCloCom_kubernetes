@@ -35,8 +35,15 @@ After setting up the namespace and the secret minio is set up to store the data 
 As minio is set up Redis has to be set up. Redis is a modern memcache to use for distributed caching and as key-value store for avoiding file corruption during normal operations. It includes a service as well as the pods. <br>
 The service is again very simple, only defining the port of the service. In the deployment the initialized service is then used. This pot is only created once, as it is used for all servers. Additionally in the deployment only the needed values are set to correctly setup a redis pod, like the image or the restart policy.
 
-## MySQL
-The next step is to setup the database for nextcloud. The database is needed to store administrative data. As database you can setup MySQL, MariaDB, PostgreSQL and a Oracle database, recommended by Nextcloud are the first two options.
+## Database
+The next step is to setup the database for nextcloud. The database is needed to store administrative data. As database you can setup MySQL, MariaDB, PostgreSQL and a Oracle database, recommended by Nextcloud are the first two options. We setup two different setups, one with MySQL and one with MariaDB. In the following the yaml files of both setups are described.
+
+### MySQL
+The MySQL setup includes a statefulset of the database, which automatically forward the included data to all nodes. The setup is done with a persistent volume claim, a configmap, a service as well as the statefulset. <br>
+First of all the persistent volume claim is setup to store the data for the database. After this the configmap is created. It is used to configure the master and slave nodes in the cluster. The master is allowed to read and write, the slaves are only allowed to read. After this the service is created which is then used in the statefulset deployment. <br>
+The statefulset deployment is a special kind of deployment. In a statefulset the pods are initialized one after the other. So first the master is created and afterwards the childs are created. To clone the data and to set the config different bash commands are used.
+
+### MariaDB
 
 ## Nextcloud
 
