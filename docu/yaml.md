@@ -33,7 +33,7 @@ After setting up the namespace and the secret minio is set up to store the data 
 
 ## Redis
 As minio is set up Redis has to be set up. Redis is a modern memcache to use for distributed caching and as key-value store for avoiding file corruption during normal operations. It includes a service as well as the pods. <br>
-The service is again very simple, only defining the port of the service. In the deployment the initialized service is then used. This pot is only created once, as it is used for all servers.
+The service is again very simple, only defining the port of the service. In the deployment the initialized service is then used. This pot is only created once, as it is used for all servers. Additionally in the deployment only the needed values are set to correctly setup a redis pod, like the image or the restart policy.
 
 ## MySQL
 
