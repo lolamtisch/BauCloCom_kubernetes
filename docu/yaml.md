@@ -36,6 +36,7 @@ As minio is set up Redis has to be set up. Redis is a modern memcache to use for
 The service is again very simple, only defining the port of the service. In the deployment the initialized service is then used. This pot is only created once, as it is used for all servers. Additionally in the deployment only the needed values are set to correctly setup a redis pod, like the image or the restart policy.
 
 ## MySQL
+The next step is to setup the database for nextcloud. The database is needed to store administrative data. As database you can setup MySQL, MariaDB, PostgreSQL and a Oracle database, recommended by Nextcloud are the first two options.
 
 ## Nextcloud
 
