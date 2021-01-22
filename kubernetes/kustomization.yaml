@@ -8,6 +8,5 @@ bases:
   - minio
   - redis
   - mariadb
-  - maxscale
   - nextcloud
   - cron
