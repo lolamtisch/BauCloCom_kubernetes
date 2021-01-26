@@ -1,0 +1,62 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: mariadb-maxscale-config
+  labels:
+    maxscale: mariadb
+data:
+  maxscale.cnf: |
+    [maxscale]
+    threads=auto
+    admin_enabled=false
+    [server0]
+    type=server
+    address=mariadb-0.mariadb.nextcloud.svc.cluster.local
+    port=3306
+    protocol=MariaDBBackend
+    persistpoolmax=10
+    persistmaxtime=999999999999
+    [server1]
+    type=server
+    address=mariadb-1.mariadb.nextcloud.svc.cluster.local
+    port=3306
+    protocol=MariaDBBackend
+    persistpoolmax=10
+    persistmaxtime=999999999999
+    [Replication-Monitor]
+    type=monitor
+    module=mariadbmon
+    servers=server0,server1
+    user=maxuser
+    password=maxpwd
+    failcount=3
+    backend_connect_timeout=3
+    backend_write_timeout=3
+    backend_read_timeout=3
+    auto_failover=true
+    auto_rejoin=true
+    enforce_read_only_slaves=1
+    [Splitter-Service]
+    type=service
+    router=readwritesplit
+    servers=server0,server1
+    user=maxuser
+    password=maxpwd
+    enable_root_user=1
+    master_accept_reads=true
+    [Splitter-Listener]
+    type=listener
+    service=Splitter-Service
+    protocol=MariaDBClient
+    port=3306
+  start-maxscale-instance.sh: |
+    maxkeys
+    replication_encrypted_password=$(maxpasswd slave)
+    maxscale_encrypted_password=$(maxpasswd maxscale_pw)
+    monitor_encrypted_password=$(maxpasswd my_password)
+    chown maxscale /var/lib/maxscale/.secrets
+    sed -e "s/<<replication_password>>/$replication_encrypted_password/g" \
+        -e "s/<<maxscale_password>>/$maxscale_encrypted_password/g" \
+        -e "s/<<monitor_password>>/$monitor_encrypted_password/g" \
+        /mnt/config-template/maxscale.cnf > /mnt/config-map/maxscale.cnf
+    maxscale -d -U maxscale --configdir=/mnt/config-map -lstdout

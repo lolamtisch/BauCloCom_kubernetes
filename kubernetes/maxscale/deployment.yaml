@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mariadb-maxscale
+  labels:
+    maxscale: mariadb
+spec:
+  selector:
+    matchLabels:
+      maxscale: mariadb
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        maxscale: mariadb
+    spec:
+      containers:
+      - name: maxscale
+        image: mariadb/maxscale:2.5
+        command:
+        - bash
+        - /mnt/config-template/start-maxscale-instance.sh
+        ports:
+        - name: mariadb
+          containerPort: 3306
+        volumeMounts:
+        - name: mariadb-config-vol
+          mountPath: /mnt/config-map
+        - name: start-maxscale
+          mountPath: /mnt/config-template
+
+      volumes:
+      - name: mariadb-config-vol
+        emptyDir: {}
+      - name: start-maxscale
+        configMap:
+          name: mariadb-maxscale-config
+          defaultMode: 484

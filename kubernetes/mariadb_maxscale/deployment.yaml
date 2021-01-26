@@ -1,0 +1,88 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: mariadb
+  namespace: mariadb
+  labels:
+    mariadb: mariadb
+spec:
+  serviceName: mariadb
+  selector:
+    matchLabels:
+      mariadb: mariadb
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        mariadb: mariadb
+    spec:
+      affinity:
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 100
+            podAffinityTerm:
+              labelSelector:
+                matchExpressions:
+                - key: mariadb
+                  operator: In
+                  values:
+                  - mariadb
+              topologyKey: kubernetes.io/hostname
+      containers:
+      - name: mariadb
+        image: mariadb/server:10.5
+        command:
+        - bash
+        - /mnt/config-map/start-mariadb.sh
+        env:
+        - name: MYSQL_ALLOW_EMPTY_PASSWORD
+          value: "Y"
+        - name: MYSQL_DATABASE
+          valueFrom:
+            secretKeyRef:
+              key: MYSQL_DATABASE
+              name: db-secrets
+        - name: MYSQL_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              key: MYSQL_PASSWORD
+              name: db-secrets
+        - name: MYSQL_USER
+          valueFrom:
+            secretKeyRef:
+              key: MYSQL_USER
+              name: db-secrets
+        ports:
+        - name: mariadb
+          containerPort: 3306
+        volumeMounts:
+        - name: mariadb
+          mountPath: /etc/my.cnf
+          subPath: my.cnf
+        - name: mariadb-sql
+          mountPath: /mnt/config-map
+        - name: data
+          mountPath: /var/lib/mysql
+          subPath: mysql
+
+      volumes:
+      - name: mariadb
+        configMap:
+          name: mariadb-config
+      - name: mariadb-sql
+        configMap:
+          name: mariadb-config
+      - name: mariadb-entrypoint-vol
+        emptyDir: {}
+
+  volumeClaimTemplates:
+  - metadata:
+      name: data
+      labels:
+        mariadb: mariadb
+    spec:
+      storageClassName: manual
+      accessModes: ["ReadWriteOnce"]
+      resources:
+        requests:
+          storage: 5Gi

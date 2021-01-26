@@ -1,0 +1,48 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: mariadb-config
+  labels:
+    mariadb: mariadb
+data:
+  my.cnf: |
+    [mariadb]
+    log-bin
+    binlog-format=ROW
+    log_slave_updates
+    log-bin=mariadb-bin
+  users.sql: |
+
+  replication.sql: |
+    RESET MASTER;
+
+    SET GLOBAL max_connections=1000;
+    SET GLOBAL gtid_strict_mode=ON;
+
+    CHANGE MASTER TO MASTER_HOST='mariadb-0.mariadb.nextcloud.svc.cluster.local', MASTER_PORT=3306, MASTER_USER='maxuser', MASTER_PASSWORD='maxpwd', MASTER_USE_GTID=slave_pos;
+
+    START SLAVE;
+  master-start-replication.sql: |
+    RESET MASTER;
+
+    SET GLOBAL max_connections=1000;
+    SET GLOBAL gtid_strict_mode=ON;
+
+    CREATE USER 'maxuser'@'127.0.0.1' IDENTIFIED BY 'maxpwd';
+    CREATE USER 'maxuser'@'%' IDENTIFIED BY 'maxpwd';
+    GRANT ALL ON *.* TO 'maxuser'@'127.0.0.1' WITH GRANT OPTION;
+    GRANT ALL ON *.* TO 'maxuser'@'%' WITH GRANT OPTION;
+
+    insert into mysql.global_priv values ('localhost','mariadb.sys','{"access":0,"plugin":"mysql_native_password","authentication_string":"","account_locked":true,"password_last_changed":0}');
+    flush privileges;
+  start-mariadb.sh: |
+    # get server id from hostname, it will have the format <something>-<id>
+    [[ $(hostname) =~ -([0-9]+)$ ]] || exit 1
+    export server_id=${BASH_REMATCH[1]}
+    #cat /mnt/config-map/users.sql > docker-entrypoint-initdb.d/init.sql
+    if [ "$server_id" != "0" ]; then
+        cat /mnt/config-map/replication.sql > docker-entrypoint-initdb.d/init.sql
+    else
+        cat /mnt/config-map/master-start-replication.sql > docker-entrypoint-initdb.d/init.sql
+    fi
+    /usr/local/bin/docker-entrypoint.sh mysqld --log-bin=mariadb-bin --binlog-format=ROW --log-slave-updates --max-connections=1000 --transaction-isolation=READ-COMMITTED --server-id=$((3000 + $server_id))

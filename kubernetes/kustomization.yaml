@@ -4,24 +4,12 @@ commonLabels:
   app: nextcloud
   version: "15"
 
+resources:
+  - nextcloudNamespace.yaml
+
 bases:
   - minio
   - redis
-  - mySQL
+  - mariadb
   - nextcloud
   - cron
-
-patchesStrategicMerge:
-  - patch.yaml
-
-vars:
-  - name: MYSQL_SERVICE
-    objref:
-      apiVersion: v1
-      kind: Service
-      name: mysql
-  - name: REDIS_SERVICE
-    objref:
-      apiVersion: v1
-      kind: Service
-      name: redis
