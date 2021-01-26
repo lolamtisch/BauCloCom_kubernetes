@@ -117,7 +117,7 @@ kubectl get secret $(kubectl get serviceaccount dashboard -o jsonpath="{.secrets
 ```
 Start the proxy service
 ```
-kubectl -n default create serviceaccount dashboard
+kubectl proxy
 ```
 The following link can be opened in the browser to access the cluster dashboard. It can only be reached on the master node and not remotely.
 ```
