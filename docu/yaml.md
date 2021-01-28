@@ -9,7 +9,7 @@ metadata:
 spec:
 ````
 The `apiversion` specifies the version of Kubernetes API which is used to create the object. <br>
-The `kind` describes what kind of object you want to create. Examples are `Deployment` for the creation of pods or `Service` which expose running pods inside the cluster. <br>
+The `kind` describes what kind of object you want to create. Examples are `Deployment` for the creation of pods or `Service` which exposes running pods inside the cluster. <br>
 The `metadata` is describing data which helps to uniquely identify the object. It often contains of a name, a unique identificator as well as a namespace. <br>
 The `spec`is then used to specify the kind of object you want to create. This is different for each kind and has different sub categories based on this. For example a database deployment needs a user and a passwort as well as a service to connect to. A service on the other side only needs a port.
 
@@ -25,7 +25,7 @@ The namespace.yaml is the first file which is applied. It creates a new object o
 Special about this yaml file is the fact, that a `spec`option is not needed, because the `metadata: kind:`option is used to specify the name of the namespace.
 
 ## Secret.yaml
-The secret.yaml is the next file which is applied. It contains all passwords and users for nextcloud as well as mysql. All values inside this file are base64 encoded to not be stolen easily. 
+The secret.yaml is the next file which is applied. It contains all passwords and users for nextcloud as well as mysql. All values inside this file are base64 encoded to not be stolen easily. <br>
 This secrets should be changed for your server every time you build up a new cluster to not allow attackers to get access to your infrastructure easily. <br>
 The kind `Secret`is also slightly different than the general structure. A `type` of the secret is descibed as well as different variables inside the `data` option.
 
