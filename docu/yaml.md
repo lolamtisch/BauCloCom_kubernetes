@@ -9,8 +9,8 @@ metadata:
 spec:
 ````
 The `apiversion` specifies the version of Kubernetes API which is used to create the object. <br>
-The `kind` describes what kind of object you want to create. Examples are `Deployment` for the creation of pods or `Service`. <br>
-The `metadata` is describing data which helps to uniquely identify the object. It often contains of a name, a unique identificator as well as an namespace. <br>
+The `kind` describes what kind of object you want to create. Examples are `Deployment` for the creation of pods or `Service` which expose running pods inside the cluster. <br>
+The `metadata` is describing data which helps to uniquely identify the object. It often contains of a name, a unique identificator as well as a namespace. <br>
 The `spec`is then used to specify the kind of object you want to create. This is different for each kind and has different sub categories based on this. For example a database deployment needs a user and a passwort as well as a service to connect to. A service on the other side only needs a port.
 
 To create a object based on a file in kubectl you have to use the `kubectl apply` command. It is used as following: 
@@ -25,12 +25,15 @@ The namespace.yaml is the first file which is applied. It creates a new object o
 Special about this yaml file is the fact, that a `spec`option is not needed, because the `metadata: kind:`option is used to specify the name of the namespace.
 
 ## Secret.yaml
-The secret.yaml is the next file which is applied. It contains all passwords and users for nextcloud as well as mysql. All values inside this file are base64 encoded to not be stolen easily. This secrets should be changed for your server every time you build up a new cluster to not allow attackers to get access to your infrastructure easily. <br>
-The kind `Secret`is also a little bit different than the general structure. A `type` of the secret is descibed as well as different variables inside the `data` option.
+The secret.yaml is the next file which is applied. It contains all passwords and users for nextcloud as well as mysql. All values inside this file are base64 encoded to not be stolen easily. 
+This secrets should be changed for your server every time you build up a new cluster to not allow attackers to get access to your infrastructure easily. <br>
+The kind `Secret`is also slightly different than the general structure. A `type` of the secret is descibed as well as different variables inside the `data` option.
 
 ## Minio
-After setting up the namespace and the secret minio is set up to store the data of nextcloud. Nextcloud needs a primary storage and allows object storages to be set up to be this primary storage. To do this nextcloud needs exclusiv access to the storage. For the deployment of Minio to work properly with Nextcloud, a secret and a tenant are needed. <br>
-The secrets describe the minio credentials as well as the console keys. These are then used inside the tenants. Tenants are a special kind of object which is not present in default kubernetes. To create such an object you have to install minio on the cluster first to use it. The tenant then can be created with the yaml file. Inside the file the amount of replicas is set to two. Based on this two consol objects are created for minio. Kubernetes automatically detects the amount of servers available in the cluster as well as their workload and then evenly distributes all replicas accross the cluster. Inside the tentant a persistent volume claim is created to store data not only for the runtime but indipendent of the pod. In the file the amount of servers is described as two as well as each server gets two volume claims with a storage of 5GB each.
+After setting up the namespace and the secret minio is set up to Store the data of nextcloud. For the deployment secrets and tenants are needed. The secrets describe the minio credentials as well as the console keys. These are then used inside the tenants. 
+Tenants are a special kind of object which is not present in default kubernetes. To create such an object you have to install minio on the cluster first to use it. The tenant then can be created with the yaml file. Inside the file the amount of replicas is set to two. 
+Based on this two console objects are created for minio. Kubernetes automatically detects the amount of servers available in the cluster as well as their workload and then evenly distributes all replicas across the cluster. 
+Inside the tenant a persistent volume claim is created to store data not only for the runtime but independent of the pod.
 
 ## Redis
 As minio is set up Redis has to be set up. Redis is a modern memcache to use for distributed caching and as key-value store for avoiding file corruption during normal operations. It includes a service as well as the pods. <br>
@@ -61,3 +64,4 @@ In the deployment it is configured, that the amount of replicas is set to one, a
 <br>
 
 After all this thing have been created you should have a running cluster of Nextcloud running in kubernetes. For more detailed information about the setup, you should have a look into chapter $Link chapter of installation guide$.
+
