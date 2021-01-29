@@ -21,7 +21,7 @@ Comment out the entry for the swapfile with '#' in /etc/fstab
 nano /etc/fstab
 ```
 
-Set the hostname according to its role (kmaster of master and kworer0x for each worker). Nodes cant have the same hostname.
+Set the hostname according to its role (kmaster of master and kworker0x for each worker). Nodes cant have the same hostname.
 ```
 nano /etc/hostname
 ```
