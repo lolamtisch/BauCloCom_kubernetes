@@ -22,7 +22,7 @@ MaxScale is a database proxy for Mariadb replications. The difference between MY
 
 The folder mariadb_maxscale contains the configuration to setup Mariadb for Maxscale. It is very similar to the normal mariadb setup with the difference that it is a statefullset and starting the db in replication mode. Maxscale is configured in a configMap which is loaded inside the deployment. As we have two servers the Maxscale replication is set to two. This is the only setup that can be used as a load balancer and failover for the database. Unfortunately the latency performance of this approach is very poor resulting in the Nextcloud UI responding unreasonably slow.
 
-In the end we decided to use the simple mariadb approach as the recommended and preset approach.
+As the database replication solutions we teste did not work well with Nextcloud we decided to use the simple mariadb approach as the recommended and preset approach.
 
 # Continuous Delivery
 Continuous Delivery (CD) makes it possible to deploy changes automatically to the server. For this we use GitHub Actions as the pipeline. The configuration can be found in the .github folder and are automatically trigger when pushing a commit to the master branch.
